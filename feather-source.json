@@ -1,9 +1,415 @@
 {
   "name": "Craft iPad Apps",
   "identifier": "com.craftsuite.feather.source",
-  "subtitle": "iPadOS IPA releases",
-  "description": "Automatically populated after the next successful build.",
+  "subtitle": "13 ArtCraft iPadOS apps",
+  "description": "Unofficial iPadOS IPA builds. Includes version history from GitHub Releases.",
+  "iconURL": "https://raw.githubusercontent.com/owen-tariq/craft-ipad-apps/main/ios-wrapper/Sources/Assets.xcassets/AppIcon.appiconset/AppIcon.png",
+  "website": "https://github.com/owen-tariq/craft-ipad-apps",
   "sourceURL": "https://raw.githubusercontent.com/owen-tariq/craft-ipad-apps/main/feather-source.json",
-  "apps": [],
+  "apps": [
+    {
+      "name": "PhotoCraft",
+      "bundleIdentifier": "com.craftsuite.photocraft",
+      "developerName": "storytold / Craft iPad Apps contributors",
+      "subtitle": "PhotoCraft for iPadOS",
+      "localizedDescription": "iPadOS wrapper for PhotoCraft. Unofficial community build.",
+      "iconURL": "https://raw.githubusercontent.com/storytold/photocraft/main/assets/app-icon/photocraft-1024.png",
+      "tintColor": "5865F2",
+      "category": "productivity",
+      "version": "0.23.1",
+      "versionDate": "2026-11-15",
+      "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.2.0/PhotoCraft-v0.23.1-iPad.ipa",
+      "size": 18567854,
+      "versions": [
+        {
+          "version": "0.23.1",
+          "date": "2026-11-15",
+          "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.2.0/PhotoCraft-v0.23.1-iPad.ipa",
+          "size": 18567854,
+          "localizedDescription": "PhotoCraft iPadOS build from v1.2.0; upstream version 0.23.1."
+        },
+        {
+          "version": "1.0.0",
+          "date": "2026-11-15",
+          "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.0.0/PhotoCraft-iPad.ipa",
+          "size": 18567854,
+          "localizedDescription": "PhotoCraft iPadOS build from v1.0.0; upstream version not recorded."
+        }
+      ],
+      "minOSVersion": "15.0"
+    },
+    {
+      "name": "VectorCraft",
+      "bundleIdentifier": "com.craftsuite.vectorcraft",
+      "developerName": "storytold / Craft iPad Apps contributors",
+      "subtitle": "VectorCraft for iPadOS",
+      "localizedDescription": "iPadOS wrapper for VectorCraft. Unofficial community build.",
+      "iconURL": "https://raw.githubusercontent.com/storytold/vectorcraft/main/assets/app-icon/vectorcraft-1024.png",
+      "tintColor": "5865F2",
+      "category": "productivity",
+      "version": "0.24.1",
+      "versionDate": "2026-11-15",
+      "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.2.0/VectorCraft-v0.24.1-iPad.ipa",
+      "size": 40587184,
+      "versions": [
+        {
+          "version": "0.24.1",
+          "date": "2026-11-15",
+          "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.2.0/VectorCraft-v0.24.1-iPad.ipa",
+          "size": 40587184,
+          "localizedDescription": "VectorCraft iPadOS build from v1.2.0; upstream version 0.24.1."
+        },
+        {
+          "version": "1.0.0",
+          "date": "2026-11-15",
+          "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.0.0/VectorCraft-iPad.ipa",
+          "size": 40587180,
+          "localizedDescription": "VectorCraft iPadOS build from v1.0.0; upstream version not recorded."
+        }
+      ],
+      "minOSVersion": "15.0"
+    },
+    {
+      "name": "DesignCraft",
+      "bundleIdentifier": "com.craftsuite.designcraft",
+      "developerName": "storytold / Craft iPad Apps contributors",
+      "subtitle": "DesignCraft for iPadOS",
+      "localizedDescription": "iPadOS wrapper for DesignCraft. Unofficial community build.",
+      "iconURL": "https://raw.githubusercontent.com/storytold/designcraft/main/assets/app-icon/designcraft-1024.png",
+      "tintColor": "5865F2",
+      "category": "productivity",
+      "version": "0.20.1",
+      "versionDate": "2026-11-15",
+      "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.2.0/DesignCraft-v0.20.1-iPad.ipa",
+      "size": 29259967,
+      "versions": [
+        {
+          "version": "0.20.1",
+          "date": "2026-11-15",
+          "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.2.0/DesignCraft-v0.20.1-iPad.ipa",
+          "size": 29259967,
+          "localizedDescription": "DesignCraft iPadOS build from v1.2.0; upstream version 0.20.1."
+        },
+        {
+          "version": "1.0.0",
+          "date": "2026-11-15",
+          "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.0.0/DesignCraft-iPad.ipa",
+          "size": 29259966,
+          "localizedDescription": "DesignCraft iPadOS build from v1.0.0; upstream version not recorded."
+        }
+      ],
+      "minOSVersion": "15.0"
+    },
+    {
+      "name": "LightCraft",
+      "bundleIdentifier": "com.craftsuite.lightcraft",
+      "developerName": "storytold / Craft iPad Apps contributors",
+      "subtitle": "LightCraft for iPadOS",
+      "localizedDescription": "iPadOS wrapper for LightCraft. Unofficial community build.",
+      "iconURL": "https://raw.githubusercontent.com/storytold/lightcraft/main/assets/app-icon/lightcraft-1024.png",
+      "tintColor": "5865F2",
+      "category": "productivity",
+      "version": "0.21.1",
+      "versionDate": "2026-11-15",
+      "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.2.0/LightCraft-v0.21.1-iPad.ipa",
+      "size": 76697385,
+      "versions": [
+        {
+          "version": "0.21.1",
+          "date": "2026-11-15",
+          "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.2.0/LightCraft-v0.21.1-iPad.ipa",
+          "size": 76697385,
+          "localizedDescription": "LightCraft iPadOS build from v1.2.0; upstream version 0.21.1."
+        },
+        {
+          "version": "1.0.0",
+          "date": "2026-11-15",
+          "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.0.0/LightCraft-iPad.ipa",
+          "size": 76697385,
+          "localizedDescription": "LightCraft iPadOS build from v1.0.0; upstream version not recorded."
+        }
+      ],
+      "minOSVersion": "15.0"
+    },
+    {
+      "name": "FilmCraft",
+      "bundleIdentifier": "com.craftsuite.filmcraft",
+      "developerName": "storytold / Craft iPad Apps contributors",
+      "subtitle": "FilmCraft for iPadOS",
+      "localizedDescription": "iPadOS wrapper for FilmCraft. Unofficial community build.",
+      "iconURL": "https://raw.githubusercontent.com/storytold/filmcraft/main/assets/app-icon/filmcraft-1024.png",
+      "tintColor": "5865F2",
+      "category": "productivity",
+      "version": "0.20.1",
+      "versionDate": "2026-11-15",
+      "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.2.0/FilmCraft-v0.20.1-iPad.ipa",
+      "size": 17851316,
+      "versions": [
+        {
+          "version": "0.20.1",
+          "date": "2026-11-15",
+          "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.2.0/FilmCraft-v0.20.1-iPad.ipa",
+          "size": 17851316,
+          "localizedDescription": "FilmCraft iPadOS build from v1.2.0; upstream version 0.20.1."
+        },
+        {
+          "version": "1.0.0",
+          "date": "2026-11-15",
+          "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.0.0/FilmCraft-iPad.ipa",
+          "size": 17851313,
+          "localizedDescription": "FilmCraft iPadOS build from v1.0.0; upstream version not recorded."
+        }
+      ],
+      "minOSVersion": "15.0"
+    },
+    {
+      "name": "EffectCraft",
+      "bundleIdentifier": "com.craftsuite.effectcraft",
+      "developerName": "storytold / Craft iPad Apps contributors",
+      "subtitle": "EffectCraft for iPadOS",
+      "localizedDescription": "iPadOS wrapper for EffectCraft. Unofficial community build.",
+      "iconURL": "https://raw.githubusercontent.com/storytold/effectcraft/main/assets/app-icon/effectcraft-1024.png",
+      "tintColor": "5865F2",
+      "category": "productivity",
+      "version": "0.24.1",
+      "versionDate": "2026-11-15",
+      "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.2.0/EffectCraft-v0.24.1-iPad.ipa",
+      "size": 24736234,
+      "versions": [
+        {
+          "version": "0.24.1",
+          "date": "2026-11-15",
+          "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.2.0/EffectCraft-v0.24.1-iPad.ipa",
+          "size": 24736234,
+          "localizedDescription": "EffectCraft iPadOS build from v1.2.0; upstream version 0.24.1."
+        },
+        {
+          "version": "1.0.0",
+          "date": "2026-11-15",
+          "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.0.0/EffectCraft-iPad.ipa",
+          "size": 24736231,
+          "localizedDescription": "EffectCraft iPadOS build from v1.0.0; upstream version not recorded."
+        }
+      ],
+      "minOSVersion": "15.0"
+    },
+    {
+      "name": "FigCraft",
+      "bundleIdentifier": "com.craftsuite.figcraft",
+      "developerName": "storytold / Craft iPad Apps contributors",
+      "subtitle": "FigCraft for iPadOS",
+      "localizedDescription": "iPadOS wrapper for FigCraft. Unofficial community build.",
+      "iconURL": "https://raw.githubusercontent.com/storytold/figcraft/main/assets/app-icon/figcraft-1024.png",
+      "tintColor": "5865F2",
+      "category": "productivity",
+      "version": "0.18.1",
+      "versionDate": "2026-11-15",
+      "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.2.0/FigCraft-v0.18.1-iPad.ipa",
+      "size": 13261169,
+      "versions": [
+        {
+          "version": "0.18.1",
+          "date": "2026-11-15",
+          "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.2.0/FigCraft-v0.18.1-iPad.ipa",
+          "size": 13261169,
+          "localizedDescription": "FigCraft iPadOS build from v1.2.0; upstream version 0.18.1."
+        },
+        {
+          "version": "1.0.0",
+          "date": "2026-11-15",
+          "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.0.0/FigCraft-iPad.ipa",
+          "size": 13261169,
+          "localizedDescription": "FigCraft iPadOS build from v1.0.0; upstream version not recorded."
+        }
+      ],
+      "minOSVersion": "15.0"
+    },
+    {
+      "name": "WordCraft",
+      "bundleIdentifier": "com.craftsuite.wordcraft",
+      "developerName": "storytold / Craft iPad Apps contributors",
+      "subtitle": "WordCraft for iPadOS",
+      "localizedDescription": "iPadOS wrapper for WordCraft. Unofficial community build.",
+      "iconURL": "https://raw.githubusercontent.com/storytold/wordcraft/main/assets/app-icon/wordcraft-1024.png",
+      "tintColor": "5865F2",
+      "category": "productivity",
+      "version": "0.18.1",
+      "versionDate": "2026-11-15",
+      "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.2.0/WordCraft-v0.18.1-iPad.ipa",
+      "size": 22809935,
+      "versions": [
+        {
+          "version": "0.18.1",
+          "date": "2026-11-15",
+          "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.2.0/WordCraft-v0.18.1-iPad.ipa",
+          "size": 22809935,
+          "localizedDescription": "WordCraft iPadOS build from v1.2.0; upstream version 0.18.1."
+        },
+        {
+          "version": "1.0.0",
+          "date": "2026-11-15",
+          "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.0.0/WordCraft-iPad.ipa",
+          "size": 22809933,
+          "localizedDescription": "WordCraft iPadOS build from v1.0.0; upstream version not recorded."
+        }
+      ],
+      "minOSVersion": "15.0"
+    },
+    {
+      "name": "GridCraft",
+      "bundleIdentifier": "com.craftsuite.gridcraft",
+      "developerName": "storytold / Craft iPad Apps contributors",
+      "subtitle": "GridCraft for iPadOS",
+      "localizedDescription": "iPadOS wrapper for GridCraft. Unofficial community build.",
+      "iconURL": "https://raw.githubusercontent.com/storytold/gridcraft/main/assets/app-icon/gridcraft-1024.png",
+      "tintColor": "5865F2",
+      "category": "productivity",
+      "version": "0.19.1",
+      "versionDate": "2026-11-15",
+      "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.2.0/GridCraft-v0.19.1-iPad.ipa",
+      "size": 10073890,
+      "versions": [
+        {
+          "version": "0.19.1",
+          "date": "2026-11-15",
+          "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.2.0/GridCraft-v0.19.1-iPad.ipa",
+          "size": 10073890,
+          "localizedDescription": "GridCraft iPadOS build from v1.2.0; upstream version 0.19.1."
+        },
+        {
+          "version": "1.0.0",
+          "date": "2026-11-15",
+          "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.0.0/GridCraft-iPad.ipa",
+          "size": 10073888,
+          "localizedDescription": "GridCraft iPadOS build from v1.0.0; upstream version not recorded."
+        }
+      ],
+      "minOSVersion": "15.0"
+    },
+    {
+      "name": "DeckCraft",
+      "bundleIdentifier": "com.craftsuite.deckcraft",
+      "developerName": "storytold / Craft iPad Apps contributors",
+      "subtitle": "DeckCraft for iPadOS",
+      "localizedDescription": "iPadOS wrapper for DeckCraft. Unofficial community build.",
+      "iconURL": "https://raw.githubusercontent.com/storytold/deckcraft/main/assets/app-icon/deckcraft-1024.png",
+      "tintColor": "5865F2",
+      "category": "productivity",
+      "version": "0.18.1",
+      "versionDate": "2026-11-15",
+      "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.2.0/DeckCraft-v0.18.1-iPad.ipa",
+      "size": 12030484,
+      "versions": [
+        {
+          "version": "0.18.1",
+          "date": "2026-11-15",
+          "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.2.0/DeckCraft-v0.18.1-iPad.ipa",
+          "size": 12030484,
+          "localizedDescription": "DeckCraft iPadOS build from v1.2.0; upstream version 0.18.1."
+        },
+        {
+          "version": "1.0.0",
+          "date": "2026-11-15",
+          "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.0.0/DeckCraft-iPad.ipa",
+          "size": 12030483,
+          "localizedDescription": "DeckCraft iPadOS build from v1.0.0; upstream version not recorded."
+        }
+      ],
+      "minOSVersion": "15.0"
+    },
+    {
+      "name": "PdfCraft",
+      "bundleIdentifier": "com.craftsuite.pdfcraft",
+      "developerName": "storytold / Craft iPad Apps contributors",
+      "subtitle": "PdfCraft for iPadOS",
+      "localizedDescription": "iPadOS wrapper for PdfCraft. Unofficial community build.",
+      "iconURL": "https://raw.githubusercontent.com/storytold/pdfcraft/main/assets/app-icon/pdfcraft-1024.png",
+      "tintColor": "5865F2",
+      "category": "productivity",
+      "version": "0.21.1",
+      "versionDate": "2026-11-15",
+      "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.2.0/PdfCraft-v0.21.1-iPad.ipa",
+      "size": 36775411,
+      "versions": [
+        {
+          "version": "0.21.1",
+          "date": "2026-11-15",
+          "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.2.0/PdfCraft-v0.21.1-iPad.ipa",
+          "size": 36775411,
+          "localizedDescription": "PdfCraft iPadOS build from v1.2.0; upstream version 0.21.1."
+        },
+        {
+          "version": "1.0.0",
+          "date": "2026-11-15",
+          "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.0.0/PdfCraft-iPad.ipa",
+          "size": 36775411,
+          "localizedDescription": "PdfCraft iPadOS build from v1.0.0; upstream version not recorded."
+        }
+      ],
+      "minOSVersion": "15.0"
+    },
+    {
+      "name": "SoundCraft",
+      "bundleIdentifier": "com.craftsuite.soundcraft",
+      "developerName": "storytold / Craft iPad Apps contributors",
+      "subtitle": "SoundCraft for iPadOS",
+      "localizedDescription": "iPadOS wrapper for SoundCraft. Unofficial community build.",
+      "iconURL": "https://raw.githubusercontent.com/storytold/soundcraft/main/assets/app-icon/soundcraft-1024.png",
+      "tintColor": "5865F2",
+      "category": "productivity",
+      "version": "0.20.1",
+      "versionDate": "2026-11-15",
+      "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.2.0/SoundCraft-v0.20.1-iPad.ipa",
+      "size": 7669128,
+      "versions": [
+        {
+          "version": "0.20.1",
+          "date": "2026-11-15",
+          "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.2.0/SoundCraft-v0.20.1-iPad.ipa",
+          "size": 7669128,
+          "localizedDescription": "SoundCraft iPadOS build from v1.2.0; upstream version 0.20.1."
+        },
+        {
+          "version": "1.0.0",
+          "date": "2026-11-15",
+          "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.0.0/SoundCraft-iPad.ipa",
+          "size": 7669128,
+          "localizedDescription": "SoundCraft iPadOS build from v1.0.0; upstream version not recorded."
+        }
+      ],
+      "minOSVersion": "15.0"
+    },
+    {
+      "name": "CADCraft",
+      "bundleIdentifier": "com.craftsuite.cadcraft",
+      "developerName": "storytold / Craft iPad Apps contributors",
+      "subtitle": "CADCraft for iPadOS",
+      "localizedDescription": "iPadOS wrapper for CADCraft. Unofficial community build.",
+      "iconURL": "https://raw.githubusercontent.com/storytold/cadcraft/main/assets/app-icon/cadcraft-1024.png",
+      "tintColor": "5865F2",
+      "category": "productivity",
+      "version": "0.20.1",
+      "versionDate": "2026-11-15",
+      "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.2.0/CADCraft-v0.20.1-iPad.ipa",
+      "size": 11653904,
+      "versions": [
+        {
+          "version": "0.20.1",
+          "date": "2026-11-15",
+          "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.2.0/CADCraft-v0.20.1-iPad.ipa",
+          "size": 11653904,
+          "localizedDescription": "CADCraft iPadOS build from v1.2.0; upstream version 0.20.1."
+        },
+        {
+          "version": "1.0.0",
+          "date": "2026-11-15",
+          "downloadURL": "https://github.com/owen-tariq/craft-ipad-apps/releases/download/v1.0.0/CADCraft-iPad.ipa",
+          "size": 11653904,
+          "localizedDescription": "CADCraft iPadOS build from v1.0.0; upstream version not recorded."
+        }
+      ],
+      "minOSVersion": "15.0"
+    }
+  ],
   "news": []
 }
