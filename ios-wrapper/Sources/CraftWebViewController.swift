@@ -5,6 +5,8 @@ import UniformTypeIdentifiers
 final class CraftWebViewController: UIViewController, WKScriptMessageHandler, WKUIDelegate, WKNavigationDelegate {
     private var webView: WKWebView!
     private var server: LocalAssetServer?
+    private lazy var updateChecker = CraftUpdateChecker(presenter: self)
+    private var didCheckForUpdates = false
 
     override var prefersStatusBarHidden: Bool {
         return true
@@ -25,6 +27,19 @@ final class CraftWebViewController: UIViewController, WKScriptMessageHandler, WK
         super.viewDidAppear(animated)
         setNeedsStatusBarAppearanceUpdate()
         setNeedsUpdateOfScreenEdgesDeferringSystemGestures()
+        if !didCheckForUpdates {
+            didCheckForUpdates = true
+            updateChecker.checkForUpdates()
+            NotificationCenter.default.addObserver(self, selector: #selector(checkForUpdatesOnForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+        }
+    }
+
+    @objc private func checkForUpdatesOnForeground() {
+        updateChecker.checkForUpdates()
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
     private func setupWebView() {
