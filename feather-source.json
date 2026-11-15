@@ -1,0 +1,9 @@
+{
+  "name": "Craft iPad Apps",
+  "identifier": "com.craftsuite.feather.source",
+  "subtitle": "iPadOS IPA releases",
+  "description": "Automatically populated after the next successful build.",
+  "sourceURL": "https://raw.githubusercontent.com/owen-tariq/craft-ipad-apps/main/feather-source.json",
+  "apps": [],
+  "news": []
+}
