@@ -53,7 +53,7 @@ for name in NAMES:
             })
     if not versions:
         continue
-    versions.sort(key=lambda x: (tuple(map(int, x["version"].split("."))), x["date"]), reverse=True)
+    versions.sort(key=lambda x: x["date"], reverse=True)
     app_id = name.lower()
     apps.append({
         "name": name,
