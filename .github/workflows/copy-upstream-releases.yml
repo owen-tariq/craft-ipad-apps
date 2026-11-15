@@ -42,6 +42,13 @@ jobs:
           if ! gh release view v1.0.0 >/dev/null 2>&1; then
             gh release create v1.0.0 --title 'ArtCraft Suite for iPadOS (13 original IPAs)' --notes 'Mirrored unmodified IPA release assets from Milanista86/craft-ipad-apps v1.0.0. Source: https://github.com/Milanista86/craft-ipad-apps/releases/tag/v1.0.0'
           fi
-          gh release upload v1.0.0 ipas/*.ipa --clobber
+          for file in ipas/*.ipa; do
+            name=$(basename "$file")
+            if gh release view v1.0.0 --json assets --jq '.assets[].name' | grep -Fxq "$name"; then
+              echo "Preserving existing original asset: $name"
+            else
+              gh release upload v1.0.0 "$file"
+            fi
+          done
           echo "Published assets:"
           gh release view v1.0.0 --json assets --jq '.assets[].name'
