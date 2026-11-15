@@ -159,3 +159,30 @@ jobs:
           name: ${{ matrix.app_name }}-v${{ env.APP_VERSION }}-iPad-IPA
           path: ${{ matrix.app_name }}-v${{ env.APP_VERSION }}-iPad.ipa
           retention-days: 30
+
+  cleanup-legacy-assets:
+    name: Remove duplicate unversioned assets from v1.1.0
+    needs: build-ipa
+    if: ${{ needs.build-ipa.result == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove old unversioned IPAs only when versioned replacements exist
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          for app in PhotoCraft VectorCraft DesignCraft LightCraft FilmCraft EffectCraft FigCraft WordCraft GridCraft DeckCraft PdfCraft SoundCraft CADCraft; do
+            old="${app}-iPad.ipa"
+            assets=$(gh release view v1.1.0 --json assets --jq '.assets[].name')
+            if ! printf '%s\n' "$assets" | grep -Fxq "$old"; then
+              echo "No legacy asset for $app"
+              continue
+            fi
+            if ! printf '%s\n' "$assets" | grep -Eq "^${app}-v[0-9]+\\.[0-9]+\\.[0-9]+-iPad\\.ipa$"; then
+              echo "::error::No versioned replacement for $old; preserving it."
+              exit 1
+            fi
+            echo "Removing duplicate $old (versioned replacement is present)"
+            gh release delete-asset v1.1.0 "$old" --yes
+          done
