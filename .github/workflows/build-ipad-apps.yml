@@ -5,9 +5,10 @@ on:
     branches: [ main ]
     paths:
       - 'ios-wrapper/**'
+      - 'scripts/generate_feather_source.py'
       - '.github/workflows/build-ipad-apps.yml'
   schedule:
-    - cron: '0 4 * * 0'
+    - cron: '0 4 * * *'
   workflow_dispatch:
 
 permissions:
@@ -130,6 +131,8 @@ jobs:
             APP_NAME="${{ matrix.app_name }}" \
             APP_DISPLAY_NAME="${{ matrix.app_name }}" \
             APP_BUNDLE_ID="${{ matrix.bundle_id }}" \
+            APP_VERSION="${APP_VERSION}" \
+            CURRENT_PROJECT_VERSION="${GITHUB_RUN_NUMBER}" \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGN_IDENTITY="" \
@@ -139,18 +142,18 @@ jobs:
           cp -R "build/Build/Products/Release-iphoneos/${{ matrix.app_name }}.app" Payload/
           zip -r -y "$GITHUB_WORKSPACE/${{ matrix.app_name }}-v${APP_VERSION}-iPad.ipa" Payload
 
-      - name: Upload versioned ${{ matrix.app_name }} IPA to GitHub Release v1.1.0
+      - name: Upload versioned ${{ matrix.app_name }} IPA to GitHub Release v1.2.0
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if ! gh release view v1.1.0 >/dev/null 2>&1; then
-            gh release create v1.1.0 --title "ArtCraft Suite for iPadOS (Updated 13 Apps)" --notes "Updated 13-app iPadOS IPA suite using latest available storytold web release bundles at build time." || true
+          if ! gh release view v1.2.0 >/dev/null 2>&1; then
+            gh release create v1.2.0 --title "ArtCraft Suite for iPadOS (Updated 13 Apps)" --notes "Updated 13-app iPadOS IPA suite using latest available storytold web release bundles at build time." || true
           fi
           FILE="${{ matrix.app_name }}-v${APP_VERSION}-iPad.ipa"
-          if gh release view v1.1.0 --json assets --jq '.assets[].name' | grep -Fxq "$FILE"; then
+          if gh release view v1.2.0 --json assets --jq '.assets[].name' | grep -Fxq "$FILE"; then
             echo "Preserving existing release asset: $FILE"
           else
-            gh release upload v1.1.0 "$FILE"
+            gh release upload v1.2.0 "$FILE"
           fi
 
       - name: Upload ${{ matrix.app_name }}-iPad.ipa Workflow Artifact
@@ -161,7 +164,7 @@ jobs:
           retention-days: 30
 
   cleanup-legacy-assets:
-    name: Remove duplicate unversioned assets from v1.1.0
+    name: Remove duplicate unversioned assets from v1.2.0
     needs: build-ipa
     if: ${{ needs.build-ipa.result == 'success' }}
     runs-on: ubuntu-latest
@@ -174,7 +177,7 @@ jobs:
           set -euo pipefail
           for app in PhotoCraft VectorCraft DesignCraft LightCraft FilmCraft EffectCraft FigCraft WordCraft GridCraft DeckCraft PdfCraft SoundCraft CADCraft; do
             old="${app}-iPad.ipa"
-            assets=$(gh release view v1.1.0 --json assets --jq '.assets[].name')
+            assets=$(gh release view v1.2.0 --json assets --jq '.assets[].name')
             if ! printf '%s\n' "$assets" | grep -Fxq "$old"; then
               echo "No legacy asset for $app"
               continue
@@ -184,5 +187,34 @@ jobs:
               exit 1
             fi
             echo "Removing duplicate $old (versioned replacement is present)"
-            gh release delete-asset v1.1.0 "$old" --yes
+            gh release delete-asset v1.2.0 "$old" --yes
           done
+
+  publish-feather-source:
+    name: Refresh Feather source from all GitHub releases
+    needs: [build-ipa, cleanup-legacy-assets]
+    if: ${{ always() && needs.build-ipa.result == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate Feather-compatible source JSON
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python3 scripts/generate_feather_source.py
+          python3 -m json.tool feather-source.json > /dev/null
+          test "$(python3 -c 'import json; print(len(json.load(open("feather-source.json"))["apps"]))')" -eq 13
+      - name: Publish source at permanent raw GitHub URL
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          sha=$(gh api "repos/$GH_REPO/contents/feather-source.json" --jq '.sha')
+          content=$(base64 -w0 feather-source.json)
+          gh api -X PUT "repos/$GH_REPO/contents/feather-source.json" \
+            -f message="Update Feather source with available IPA releases" \
+            -f content="$content" \
+            -f sha="$sha" > /dev/null
+          echo "Source: https://raw.githubusercontent.com/$GH_REPO/main/feather-source.json"
