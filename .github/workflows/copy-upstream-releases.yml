@@ -1,0 +1,47 @@
+name: Mirror original iPad IPA release assets
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/copy-upstream-releases.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mirror-ipad-releases
+  cancel-in-progress: false
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download original IPA assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p ipas
+          gh release download v1.0.0 --repo Milanista86/craft-ipad-apps --pattern '*.ipa' --dir ipas
+          count=$(find ipas -maxdepth 1 -type f -iname '*.ipa' | wc -l)
+          echo "Downloaded $count IPA files"
+          if [ "$count" -ne 13 ]; then
+            echo "::error::Expected 13 IPA assets, got $count. Refusing partial mirror."
+            exit 1
+          fi
+          ls -lh ipas
+
+      - name: Publish exact IPA files to this repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          if ! gh release view v1.0.0 >/dev/null 2>&1; then
+            gh release create v1.0.0 --title 'ArtCraft Suite for iPadOS (13 original IPAs)' --notes 'Mirrored unmodified IPA release assets from Milanista86/craft-ipad-apps v1.0.0. Source: https://github.com/Milanista86/craft-ipad-apps/releases/tag/v1.0.0'
+          fi
+          gh release upload v1.0.0 ipas/*.ipa --clobber
+          echo "Published assets:"
+          gh release view v1.0.0 --json assets --jq '.assets[].name'
