@@ -50,6 +50,10 @@ jobs:
           REPO="storytold/${{ matrix.id }}"
           ASSET_NAME=$(gh release view --repo "$REPO" --json assets --jq '.assets[].name' | grep -iE 'web.*\.zip$' | head -n 1)
           echo "Downloading $ASSET_NAME from $REPO..."
+          APP_VERSION=$(printf "%s" "$ASSET_NAME" | grep -oE "[0-9]+\.[0-9]+\.[0-9]+" | head -n 1)
+          test -n "$APP_VERSION" || { echo "::error::Cannot determine app version from $ASSET_NAME"; exit 1; }
+          echo "APP_VERSION=$APP_VERSION" >> "$GITHUB_ENV"
+          echo "Upstream app version: $APP_VERSION"
           gh release download --repo "$REPO" --pattern "$ASSET_NAME" --dir /tmp/web-release
           mkdir -p /tmp/web-extracted
           unzip -q "/tmp/web-release/$ASSET_NAME" -d /tmp/web-extracted
@@ -133,20 +137,25 @@ jobs:
 
           mkdir -p Payload
           cp -R "build/Build/Products/Release-iphoneos/${{ matrix.app_name }}.app" Payload/
-          zip -r -y "$GITHUB_WORKSPACE/${{ matrix.app_name }}-iPad.ipa" Payload
+          zip -r -y "$GITHUB_WORKSPACE/${{ matrix.app_name }}-v${APP_VERSION}-iPad.ipa" Payload
 
-      - name: Upload ${{ matrix.app_name }}-iPad.ipa to GitHub Release v1.1.0
+      - name: Upload versioned ${{ matrix.app_name }} IPA to GitHub Release v1.1.0
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           if ! gh release view v1.1.0 >/dev/null 2>&1; then
             gh release create v1.1.0 --title "ArtCraft Suite for iPadOS (Updated 13 Apps)" --notes "Updated 13-app iPadOS IPA suite using latest available storytold web release bundles at build time." || true
           fi
-          gh release upload v1.1.0 "${{ matrix.app_name }}-iPad.ipa" --clobber
+          FILE="${{ matrix.app_name }}-v${APP_VERSION}-iPad.ipa"
+          if gh release view v1.1.0 --json assets --jq '.assets[].name' | grep -Fxq "$FILE"; then
+            echo "Preserving existing release asset: $FILE"
+          else
+            gh release upload v1.1.0 "$FILE"
+          fi
 
       - name: Upload ${{ matrix.app_name }}-iPad.ipa Workflow Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.app_name }}-iPad-IPA
-          path: ${{ matrix.app_name }}-iPad.ipa
+          name: ${{ matrix.app_name }}-v${{ env.APP_VERSION }}-iPad-IPA
+          path: ${{ matrix.app_name }}-v${{ env.APP_VERSION }}-iPad.ipa
           retention-days: 30
