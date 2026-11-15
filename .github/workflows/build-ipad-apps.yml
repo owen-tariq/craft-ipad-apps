@@ -135,14 +135,14 @@ jobs:
           cp -R "build/Build/Products/Release-iphoneos/${{ matrix.app_name }}.app" Payload/
           zip -r -y "$GITHUB_WORKSPACE/${{ matrix.app_name }}-iPad.ipa" Payload
 
-      - name: Upload ${{ matrix.app_name }}-iPad.ipa to GitHub Release v1.0.0
+      - name: Upload ${{ matrix.app_name }}-iPad.ipa to GitHub Release v1.1.0
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if ! gh release view v1.0.0 >/dev/null 2>&1; then
-            gh release create v1.0.0 --title "ArtCraft Suite for iPadOS (All 13 Apps)" --notes "Complete 13-app iPadOS .ipa suite and live Web App Hub." || true
+          if ! gh release view v1.1.0 >/dev/null 2>&1; then
+            gh release create v1.1.0 --title "ArtCraft Suite for iPadOS (Updated 13 Apps)" --notes "Updated 13-app iPadOS IPA suite using latest available storytold web release bundles at build time." || true
           fi
-          gh release upload v1.0.0 "${{ matrix.app_name }}-iPad.ipa" --clobber
+          gh release upload v1.1.0 "${{ matrix.app_name }}-iPad.ipa" --clobber
 
       - name: Upload ${{ matrix.app_name }}-iPad.ipa Workflow Artifact
         uses: actions/upload-artifact@v4
