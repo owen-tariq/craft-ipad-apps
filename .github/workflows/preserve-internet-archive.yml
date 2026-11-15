@@ -1,0 +1,73 @@
+name: Preserve original iPad IPAs on Internet Archive
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Archive.org credentials
+        env:
+          IA_ACCESS: ${{ secrets.IA_S3_ACCESS_KEY }}
+          IA_SECRET: ${{ secrets.IA_S3_SECRET_KEY }}
+        run: |
+          if [ -z "$IA_ACCESS" ] || [ -z "$IA_SECRET" ]; then
+            echo "::error::Add IA_S3_ACCESS_KEY and IA_S3_SECRET_KEY as repository Actions secrets."
+            exit 1
+          fi
+
+      - name: Download all 13 original IPAs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p ipas
+          gh release download v1.0.0 --repo Milanista86/craft-ipad-apps --pattern '*.ipa' --dir ipas
+          count=$(find ipas -maxdepth 1 -type f -name '*.ipa' | wc -l)
+          if [ "$count" -ne 13 ]; then
+            echo "::error::Expected 13 original IPA files; found $count. Upload cancelled."
+            exit 1
+          fi
+          (cd ipas && sha256sum -- *.ipa > SHA256SUMS.txt)
+          cat > ipas/SOURCE.txt <<'EOF'
+          Original release: https://github.com/Milanista86/craft-ipad-apps/releases/tag/v1.0.0
+          Fork: https://github.com/owen-tariq/craft-ipad-apps
+          These files are mirrored as downloaded, without modification or re-signing.
+          SHA256SUMS.txt contains checksums of the downloaded IPA files.
+          Third-party software; no endorsement or warranty is implied.
+          EOF
+
+      - name: Upload to Internet Archive
+        env:
+          IA_ACCESS: ${{ secrets.IA_S3_ACCESS_KEY }}
+          IA_SECRET: ${{ secrets.IA_S3_SECRET_KEY }}
+        run: |
+          set -euo pipefail
+          IDENTIFIER="artcraft-ipados-original-ipa-suite-v1-0-0"
+          # Archive.org item identifier is globally unique. If already occupied,
+          # choose a new identifier here before running the workflow.
+          for file in ipas/*.ipa ipas/SHA256SUMS.txt ipas/SOURCE.txt; do
+            name=$(basename "$file")
+            echo "Uploading $name"
+            args=(
+              --fail-with-body --show-error --silent --retry 3
+              --request PUT --upload-file "$file"
+              --header "Authorization: LOW $IA_ACCESS:$IA_SECRET"
+              --header "x-archive-auto-make-bucket:1"
+            )
+            if [ "$name" = "SOURCE.txt" ]; then
+              args+=(
+                --header "x-archive-meta-title: ArtCraft Suite for iPadOS - Original 13 IPA Files (v1.0.0)"
+                --header "x-archive-meta-mediatype: software"
+                --header "x-archive-meta-collection: opensource"
+                --header "x-archive-meta-description: Preservation mirror of 13 unmodified iPadOS IPA release assets from Milanista86/craft-ipad-apps v1.0.0. See SOURCE.txt and SHA256SUMS.txt."
+                --header "x-archive-meta-subject: iPadOS;IPA;software preservation;ArtCraft"
+              )
+            fi
+            curl "${args[@]}" "https://s3.us.archive.org/$IDENTIFIER/$name"
+          done
+          echo "Archive item: https://archive.org/details/$IDENTIFIER"
